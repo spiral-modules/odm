@@ -11,6 +11,9 @@ before_install:
   - composer self-update
   - phpenv config-add tests/php-travis.ini
 
+install:
+  - composer install --no-interaction --prefer-source
+
 script:
   - phpunit --coverage-clover=clover.xml
 
