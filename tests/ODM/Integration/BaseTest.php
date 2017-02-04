@@ -43,11 +43,6 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (empty(env('MONGO_DATABASE'))) {
-            $this->skipped = true;
-            $this->markTestSkipped('Mongo credentials are not set');
-        }
-
         $this->odm = $this->realODM(static::MODELS);
         $this->database = self::$staticDatabase;
     }
@@ -76,8 +71,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $manager = m::mock(MongoManager::class);
         $manager->shouldReceive('database')->with(null)->andReturn(
             self::$staticDatabase ?? self::$staticDatabase = new MongoDatabase(
-                new Manager(env('MONGO_CONNECTION')),
-                env('MONGO_DATABASE')
+                new Manager('mongodb://localhost:27017'),
+                'phpunit'
             )
         );
 
