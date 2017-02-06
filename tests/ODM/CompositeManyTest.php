@@ -4,9 +4,9 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM;
 
-use Mockery as m;
 use Spiral\ODM\DocumentEntity;
 use Spiral\ODM\Entities\DocumentCompositor;
 use Spiral\ODM\Schemas\Definitions\CompositionDefinition;
@@ -39,6 +39,8 @@ class CompositeManyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(User::class, $admin);
         $this->assertInstanceOf(DocumentCompositor::class, $admin->pieces);
+
+        $this->assertSame(DataPiece::class, $admin->pieces->getClass());
     }
 
     public function testCompositeOneWithValue()
@@ -328,6 +330,45 @@ class CompositeManyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($admin->pieces->has(['value' => 123]));
         $this->assertFalse($admin->pieces->has(['value' => 888]));
+    }
+
+    public function testIterations()
+    {
+        $builder = $this->makeBuilder();
+        $builder->addSchema($this->makeSchema(User::class));
+        $builder->addSchema($admin = $this->makeSchema(Admin::class));
+        $builder->addSchema($this->makeSchema(DataPiece::class));
+
+        $odm = $this->makeODM();
+        $odm->buildSchema($builder);
+
+        $admin = $odm->make(Admin::class, ['pieces' => [['value' => 'abc']]]);
+
+        $this->assertCount(1, $admin->pieces);
+
+        $admin->pieces = [
+            ['value' => 123],
+            ['value' => 456],
+            ['value' => 123],
+            ['value' => '888']
+        ];
+
+        $this->assertTrue($admin->pieces->has(['value' => 888]));
+        $this->assertTrue($admin->pieces->has(['value' => 123]));
+
+        $this->assertCount(4, $admin->pieces);
+
+        $this->assertSame($admin->pieces->publicValue(), $admin->pieces->jsonSerialize());
+
+        $this->assertInternalType('array', $admin->pieces->__debugInfo());
+
+        $count = 0;
+        foreach ($admin->pieces as $p) {
+            $count++;
+            $this->assertInstanceOf(DataPiece::class, $p);
+        }
+
+        $this->assertSame(4, $count);
     }
 
     public function testPushOne()
