@@ -4,6 +4,7 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM\Integration;
 
 use MongoDB\Driver\Cursor;
@@ -11,6 +12,7 @@ use Spiral\ODM\Entities\DocumentCursor;
 use Spiral\Tests\ODM\Fixtures\Admin;
 use Spiral\Tests\ODM\Fixtures\DataPiece;
 use Spiral\Tests\ODM\Fixtures\User;
+use Spiral\Tests\ODM\Fixtures\UserSource;
 
 /**
  * Test data storage and operations with real mongo (there is no other way to test Cursor since
@@ -141,5 +143,23 @@ class SelectionTest extends BaseTest
         foreach ($result as $user) {
             $this->assertInstanceOf(User::class, $user);
         }
+    }
+
+    public function testSource()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $user = $this->odm->source(User::class)->create();
+            $user->name = 'Anton';
+            $user->piece->something = $i;
+            $user->save();
+        }
+
+        $userSource = new UserSource();
+        $this->assertSame(10, $userSource->count());
+        $this->assertSame(5, $userSource->count([
+            'piece.something' => [
+                '$gte' => 5
+            ]
+        ]));
     }
 }

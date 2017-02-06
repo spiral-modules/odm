@@ -4,6 +4,7 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM;
 
 use Mockery as m;
@@ -138,5 +139,13 @@ class SourcesTest extends \PHPUnit_Framework_TestCase
 
         $result = $source->findByPK('507f1f77bcf86cd799439011');
         $this->assertSame($entity, $result);
+    }
+
+    /**
+     * @expectedException \Spiral\ODM\Exceptions\SourceException
+     */
+    public function testInvalid()
+    {
+        $source = new DocumentSource();
     }
 }

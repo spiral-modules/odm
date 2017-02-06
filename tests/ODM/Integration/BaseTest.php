@@ -4,15 +4,19 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM\Integration;
 
 use Mockery as m;
 use MongoDB\Driver\Manager;
+use Spiral\Core\Container;
 use Spiral\ODM\Document;
 use Spiral\ODM\Entities\MongoDatabase;
 use Spiral\ODM\MongoManager;
 use Spiral\ODM\ODM;
+use Spiral\ODM\ODMInterface;
 use Spiral\ODM\Schemas\SchemaBuilder;
+use Spiral\Tests\Core\Fixtures\SharedComponent;
 use Spiral\Tests\ODM\Fixtures\Admin;
 use Spiral\Tests\ODM\Fixtures\DataPiece;
 use Spiral\Tests\ODM\Fixtures\User;
@@ -41,10 +45,14 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $odm;
 
+    protected $container;
+
     public function setUp()
     {
         $this->odm = $this->realODM(static::MODELS);
         $this->database = self::$staticDatabase;
+
+        SharedComponent::shareContainer($this->container);
     }
 
     public function tearDown()
@@ -64,6 +72,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
                 $collection->drop();
             }
         }
+
+        SharedComponent::shareContainer(null);
     }
 
     protected function realODM(array $models)
@@ -76,8 +86,12 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $odm = new ODM($manager);
+        $this->container = new Container();
+
+        $odm = new ODM($manager, null, null, $this->container);
         $builder = new SchemaBuilder($manager);
+
+        $this->container->bind(ODMInterface::class, $odm);
 
         foreach ($models as $model) {
             $builder->addSchema($this->makeSchema($model));

@@ -74,7 +74,7 @@ class DocumentSelector extends Component implements
      *
      * @var array
      */
-    private $sort = [];
+    private $sortBy = [];
 
     /**
      * @param Collection   $collection
@@ -169,7 +169,7 @@ class DocumentSelector extends Component implements
      */
     public function sortBy(array $fields): DocumentSelector
     {
-        $this->sort = $fields;
+        $this->sortBy = $fields;
 
         return $this;
     }
@@ -184,7 +184,7 @@ class DocumentSelector extends Component implements
      */
     public function orderBy(string $field, int $direction = self::ASCENDING): DocumentSelector
     {
-        return $this->sortBy($this->sort + [$field => $direction]);
+        return $this->sortBy($this->sortBy + [$field => $direction]);
     }
 
     /**
@@ -205,16 +205,17 @@ class DocumentSelector extends Component implements
             $query = $this->normalizeDates($query);
         }
 
+        //Working with projection (required to properly sort results)
         $result = $this->collection->findOne(
             array_merge($this->query, $query),
             $this->createOptions()
         );
 
-        if (!is_null($result)) {
-            $result = $this->odm->make($this->class, $result, false);
+        if (empty($result)) {
+            return null;
         }
 
-        return $result;
+        return $this->odm->make($this->class, $result, false);
     }
 
     /**
@@ -292,7 +293,7 @@ class DocumentSelector extends Component implements
             'query'      => $this->query,
             'limit'      => $this->limit,
             'offset'     => $this->offset,
-            'sort'       => $this->sort
+            'sort'       => $this->sortBy
         ];
     }
 
@@ -305,7 +306,7 @@ class DocumentSelector extends Component implements
         $this->odm = null;
         $this->paginator = null;
         $this->query = [];
-        $this->sort = [];
+        $this->sortBy = [];
     }
 
     /**
@@ -345,7 +346,7 @@ class DocumentSelector extends Component implements
         return [
             'skip'    => $this->offset,
             'limit'   => $this->limit,
-            'sort'    => $this->sort,
+            'sort'    => $this->sortBy,
             'typeMap' => self::TYPE_MAP
         ];
     }

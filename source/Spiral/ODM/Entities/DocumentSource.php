@@ -13,6 +13,7 @@ use Spiral\ODM\CompositableInterface;
 use Spiral\ODM\Document;
 use Spiral\ODM\Exceptions\SourceException;
 use Spiral\ODM\ODM;
+use Spiral\ODM\ODMInterface;
 
 /**
  * Source class associated to one or multiple (default implementation) ODM models. Source can be
@@ -47,17 +48,17 @@ class DocumentSource extends Component implements \Countable, \IteratorAggregate
     /**
      * @invisible
      *
-     * @var ODM
+     * @var ODMInterface
      */
     protected $odm = null;
 
     /**
-     * @param string $class
-     * @param ODM    $odm
+     * @param string       $class
+     * @param ODMInterface $odm
      *
      * @throws SourceException
      */
-    public function __construct(string $class = null, ODM $odm = null)
+    public function __construct(string $class = null, ODMInterface $odm = null)
     {
         if (empty($class)) {
             if (empty(static::DOCUMENT)) {
@@ -68,7 +69,7 @@ class DocumentSource extends Component implements \Countable, \IteratorAggregate
         }
 
         $this->class = $class;
-        $this->odm = $this->saturate($odm, ODM::class);
+        $this->odm = $this->saturate($odm, ODMInterface::class);
     }
 
     /**

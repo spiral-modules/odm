@@ -4,6 +4,7 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM;
 
 use Spiral\ODM\Accessors\ObjectIDsArray;
@@ -73,7 +74,10 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($entity->tags->has('c'));
 
         $entity->tags->add('d');
+        $entity->tags->add(null);
+
         $this->assertTrue($entity->tags->has('d'));
+        $this->assertFalse($entity->tags->has(null));
     }
 
     public function testArrayAccessorPull()
@@ -97,7 +101,41 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($entity->tags->has('c'));
 
         $entity->tags->pull('c');
+        $entity->tags->pull(null);
         $this->assertFalse($entity->tags->has('c'));
+    }
+
+    public function testSerilization()
+    {
+        $builder = $this->makeBuilder();
+        $odm = $this->makeODM();
+
+        $builder->addSchema($this->makeSchema(Accessed::class));
+        $odm->buildSchema($builder);
+
+        $entity = $odm->make(Accessed::class, [
+            'tags' => ['a', 'b', 'c']
+        ]);
+
+        $entity->tags->pull('c');
+
+        $this->assertInternalType('array', $entity->tags->__debugInfo());
+        $this->assertSame(['a', 'b'], $entity->tags->jsonSerialize());
+
+        $entity->tags->solidState(true);
+        $this->assertTrue($entity->tags->isSolid());
+        $entity->tags->solidState(false);
+        $this->assertFalse($entity->tags->isSolid());
+
+        $tags = clone $entity->tags;
+        $this->assertTrue($tags->isSolid());
+
+        $result = [];
+        foreach ($entity->tags as $tag) {
+            $result[] = $tag;
+        }
+
+        $this->assertSame(['a', 'b'], $result);
     }
 
     /**

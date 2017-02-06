@@ -4,6 +4,7 @@
  *
  * @author Wolfy-J
  */
+
 namespace Spiral\Tests\ODM\Integration;
 
 use MongoDB\BSON\ObjectID;
@@ -25,6 +26,58 @@ class SaveTest extends BaseTest
 
         $user->save();
         $this->assertSame(1, $this->odm->source(User::class)->count());
+
+        $user = new User();
+        $user->save();
+
+        $result = User::findByPK($user->primaryKey());
+        $this->assertInstanceOf(User::class, $result);
+    }
+
+    public function testFindByPK()
+    {
+        $user = new User();
+        $user->name = 'Anton';
+        $user->piece->value = 123;
+        $user->save();
+
+        $result = User::findByPK($user->primaryKey());
+        $this->assertInstanceOf(User::class, $result);
+        $this->assertSame('Anton', $user->name);
+    }
+
+
+    public function testFindOne()
+    {
+        $user = new User();
+        $user->name = 'Anton';
+        $user->piece->value = 123;
+        $user->save();
+
+        $result = User::findOne(['name' => 'Anton']);
+        $this->assertInstanceOf(User::class, $result);
+        $this->assertSame('Anton', $user->name);
+    }
+
+    public function testFindOneWithSort()
+    {
+        $user = new User();
+        $user->name = 'Anton';
+        $user->piece->something = 123;
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Anton';
+        $user->piece->something = 250;
+        $user->save();
+
+        $result = User::findOne(['name' => 'Anton'], ['piece.something' => 1]);
+        $this->assertInstanceOf(User::class, $result);
+        $this->assertSame(123, $result->piece->something);
+
+        $result = User::findOne(['name' => 'Anton'], ['piece.something' => -1]);
+        $this->assertInstanceOf(User::class, $result);
+        $this->assertSame(250, $result->piece->something);
     }
 
     public function testSaveOneChild()
