@@ -110,8 +110,14 @@ class DocumentSchema implements SchemaInterface
 
         $collection = $this->reflection->getProperty('collection');
         if (empty($collection)) {
+            //We have to use parent collection when extended
+            $class = $this->reflection;
+            while ($class->getParentClass()->getName() != Document::class) {
+                $class = $class->getParentClass();
+            }
+
             //Generate collection using short class name
-            $collection = Inflector::camelize($this->reflection->getShortName());
+            $collection = Inflector::camelize($class->getShortName());
             $collection = Inflector::pluralize($collection);
         }
 
