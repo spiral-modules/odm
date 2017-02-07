@@ -35,7 +35,7 @@ class AtomicsTest extends \PHPUnit_Framework_TestCase
         $builder->addSchema($this->makeSchema(DataPiece::class));
         $builder->addSchema($this->makeSchema(Accessed::class));
 
-        $this->odm->buildSchema($builder);
+        $this->odm->setSchema($builder);
     }
 
     public function testDirtyFields()

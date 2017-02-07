@@ -22,7 +22,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, []);
         $this->assertInstanceOf(Accessed::class, $entity);
@@ -37,7 +37,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, [
             'tags' => ['a', 'b', 'c']
@@ -59,7 +59,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, [
             'tags' => ['a', 'b', 'c']
@@ -86,7 +86,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, [
             'tags' => ['a', 'b', 'c']
@@ -111,7 +111,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, [
             'tags' => ['a', 'b', 'c']
@@ -149,7 +149,7 @@ class AccessorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Accessed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Accessed::class, [
             'tags' => ['a', 'b', 'c']

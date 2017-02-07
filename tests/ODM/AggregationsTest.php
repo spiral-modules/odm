@@ -31,7 +31,7 @@ class AggregationsTest extends \PHPUnit_Framework_TestCase
 
         $manager = m::mock(MongoManager::class);
         $odm = $this->makeODM($manager);
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $aggr = $odm->make(GoodAggregates::class, [
             'userId' => new ObjectID('507f1f77bcf86cd799439011')
@@ -52,7 +52,7 @@ class AggregationsTest extends \PHPUnit_Framework_TestCase
 
         $manager = m::mock(MongoManager::class);
         $odm = $this->makeODM($manager);
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $aggr = $odm->make(GoodAggregates::class, [
             'userId' => new ObjectID('507f1f77bcf86cd799439011')
@@ -69,7 +69,7 @@ class AggregationsTest extends \PHPUnit_Framework_TestCase
 
         $manager = m::mock(MongoManager::class);
         $odm = $this->makeODM($manager);
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $aggr = $odm->make(GoodAggregates::class, [
             'userId' => new ObjectID('507f1f77bcf86cd799439011')
@@ -94,7 +94,7 @@ class AggregationsTest extends \PHPUnit_Framework_TestCase
 
         $manager = m::mock(MongoManager::class);
         $odm = $this->makeODM($manager);
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $aggr = $odm->make(GoodAggregates::class, [
             'userId' => new ObjectID('507f1f77bcf86cd799439011')

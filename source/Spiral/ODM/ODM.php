@@ -135,7 +135,7 @@ class ODM extends Component implements ODMInterface, SingletonInterface
      * @param SchemaBuilder $builder
      * @param bool          $remember Set to true to remember packed schema in memory.
      */
-    public function buildSchema(SchemaBuilder $builder, bool $remember = false)
+    public function setSchema(SchemaBuilder $builder, bool $remember = false)
     {
         $this->schema = $builder->packSchema();
 
@@ -151,7 +151,7 @@ class ODM extends Component implements ODMInterface, SingletonInterface
     {
         if (empty($this->schema)) {
             //Update and remember
-            $this->buildSchema($this->schemaBuilder(), true);
+            $this->setSchema($this->schemaBuilder(), true);
         }
 
         //Check value

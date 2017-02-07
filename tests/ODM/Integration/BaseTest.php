@@ -97,7 +97,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
             $builder->addSchema($this->makeSchema($model));
         }
 
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         return $odm;
     }

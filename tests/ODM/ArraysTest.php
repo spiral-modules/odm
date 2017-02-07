@@ -23,7 +23,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Arrayed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Arrayed::class, []);
         $this->assertInstanceOf(Arrayed::class, $entity);
@@ -48,7 +48,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Arrayed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Arrayed::class, []);
         $this->assertInstanceOf(Arrayed::class, $entity);
@@ -73,7 +73,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(Arrayed::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $entity = $odm->make(Arrayed::class, []);
         $this->assertInstanceOf(Arrayed::class, $entity);

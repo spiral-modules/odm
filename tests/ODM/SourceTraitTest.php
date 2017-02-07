@@ -47,7 +47,7 @@ class SourceTraitTest extends \PHPUnit_Framework_TestCase
         $builder = $this->makeBuilder();
 
         $builder->addSchema($this->makeSchema(User::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $this->container->bind(ODMInterface::class, ODM::class);
         $this->container->bind(ODM::class, $odm);

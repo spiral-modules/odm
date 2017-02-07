@@ -24,7 +24,7 @@ class InstancesTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema(new DS(new RE(User::class), $mutators));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
@@ -40,7 +40,7 @@ class InstancesTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema(new DS(new RE(User::class), $mutators));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
@@ -59,7 +59,7 @@ class InstancesTest extends \PHPUnit_Framework_TestCase
         $builder->addSchema(new DS(new RE(User::class), $mutators));
         $builder->addSchema(new DS(new RE(Admin::class), $mutators));
 
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
@@ -82,7 +82,7 @@ class InstancesTest extends \PHPUnit_Framework_TestCase
         $builder->addSchema(new DS(new RE(Admin::class), $mutators));
         $builder->addSchema(new DS(new RE(SuperAdministrator::class), $mutators));
 
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
@@ -108,7 +108,7 @@ class InstancesTest extends \PHPUnit_Framework_TestCase
         $builder->addSchema(new DS(new RE(User::class), $mutators));
         $builder->addSchema(new DS(new RE(Admin::class), $mutators));
 
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);

@@ -69,7 +69,7 @@ class MemoryTest extends \PHPUnit_Framework_TestCase
 
         $memory->shouldNotReceive('saveData');
 
-        $odm->buildSchema($builder, false);
+        $odm->setSchema($builder, false);
         $this->assertSame('new-database', $odm->define(User::class, ODM::D_DATABASE));
     }
 }

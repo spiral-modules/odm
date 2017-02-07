@@ -20,7 +20,7 @@ class MutatorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(User::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
@@ -33,7 +33,7 @@ class MutatorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(User::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, ['name' => 'test']);
         $this->assertInstanceOf(User::class, $user);
@@ -46,7 +46,7 @@ class MutatorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(User::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class);
         $this->assertInstanceOf(User::class, $user);
@@ -62,7 +62,7 @@ class MutatorsTest extends \PHPUnit_Framework_TestCase
         $odm = $this->makeODM();
 
         $builder->addSchema($this->makeSchema(User::class));
-        $odm->buildSchema($builder);
+        $odm->setSchema($builder);
 
         $user = $odm->make(User::class, []);
         $this->assertInstanceOf(User::class, $user);
