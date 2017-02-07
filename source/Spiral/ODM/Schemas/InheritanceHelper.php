@@ -95,7 +95,7 @@ class InheritanceHelper
 
             if (empty($uniqueField)) {
                 throw new DefinitionException(
-                    "Child document {$schema} of {$this} does not have any unique field"
+                    "Child document {$schema->getClass()} of {$this} does not have any unique field"
                 );
             }
 
