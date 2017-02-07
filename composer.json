@@ -13,6 +13,7 @@
     "php": ">=7.0",
     "ext-mongodb": ">1.1.0",
     "spiral/common": "^0.9",
+    "spiral/models": "^0.9",
     "spiral/pagination": "~1.0",
     "mongodb/mongodb": "^1.1"
   },
