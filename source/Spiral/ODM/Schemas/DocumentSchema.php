@@ -293,7 +293,6 @@ class DocumentSchema implements SchemaInterface
             DocumentEntity::SH_DEFAULTS      => $this->packDefaults($builder),
 
             //Entity behaviour
-            DocumentEntity::SH_HIDDEN        => $this->reflection->getHidden(),
             DocumentEntity::SH_SECURED       => $this->reflection->getSecured(),
             DocumentEntity::SH_FILLABLE      => $this->reflection->getFillable(),
 

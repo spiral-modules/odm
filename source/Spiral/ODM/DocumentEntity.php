@@ -57,8 +57,8 @@ abstract class DocumentEntity extends SchematicEntity implements CompositableInt
      */
     const SH_INSTANTIATION = 0;
     const SH_DEFAULTS      = 1;
-    const SH_COMPOSITIONS  = 6;
-    const SH_AGGREGATIONS  = 7;
+    const SH_COMPOSITIONS  = 5;
+    const SH_AGGREGATIONS  = 6;
 
     /**
      * Constants used to describe aggregation relations (also used internally to identify
