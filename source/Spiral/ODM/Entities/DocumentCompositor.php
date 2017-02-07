@@ -7,7 +7,6 @@
 
 namespace Spiral\ODM\Entities;
 
-use Spiral\Models\PublishableInterface;
 use Spiral\Models\Traits\SolidableTrait;
 use Spiral\ODM\CompositableInterface;
 use Spiral\ODM\Exceptions\CompositorException;
@@ -21,11 +20,7 @@ use Spiral\ODM\ODMInterface;
  *
  * @todo ArrayAccess?
  */
-class DocumentCompositor implements
-    CompositableInterface,
-    PublishableInterface,
-    \Countable,
-    \IteratorAggregate
+class DocumentCompositor implements CompositableInterface, \Countable, \IteratorAggregate
 {
     use SolidableTrait;
 
@@ -337,28 +332,11 @@ class DocumentCompositor implements
     }
 
     /**
-     * Packs only public values of all nested documents.
-     *
-     * @return array
-     */
-    public function publicValue(): array
-    {
-        $result = [];
-        foreach ($this->entities as $entity) {
-            if ($entity instanceof PublishableInterface) {
-                $result[] = $entity->publicValue();
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
     {
-        return $this->publicValue();
+        return $this->packValue();
     }
 
     /**
