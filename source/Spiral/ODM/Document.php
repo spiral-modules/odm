@@ -66,12 +66,6 @@ abstract class Document extends DocumentEntity implements ActiveEntityInterface
     const COLLECTION = null;
 
     /**
-     * When set to true publicFields() method (and jsonSerialize) will replace '_id' property with
-     * 'id'.
-     */
-    const HIDE_UNDERSCORE_ID = true;
-
-    /**
      * Set of indexes to be created for associated collection. Use "@options" for additional
      * index options.
      *
@@ -127,24 +121,6 @@ abstract class Document extends DocumentEntity implements ActiveEntityInterface
     public function primaryKey()
     {
         return $this->getField('_id', null, false);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Check model setting HIDE_UNDERSCORE_ID in order to enable/disable automatic conversion of
-     * '_id' to 'id'.
-     */
-    public function publicValue(): array
-    {
-        $public = parent::publicValue();
-        if (static::HIDE_UNDERSCORE_ID) {
-            //Replace '_id' property with 'id'
-            unset($public['_id']);
-            $public = ['id' => (string)$this->primaryKey()] + $public;
-        }
-
-        return $public;
     }
 
     /**

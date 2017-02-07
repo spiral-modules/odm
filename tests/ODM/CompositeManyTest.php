@@ -358,8 +358,6 @@ class CompositeManyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(4, $admin->pieces);
 
-        $this->assertSame($admin->pieces->publicValue(), $admin->pieces->jsonSerialize());
-
         $this->assertInternalType('array', $admin->pieces->__debugInfo());
 
         $count = 0;
