@@ -21,6 +21,13 @@ abstract class AbstractArray implements CompositableInterface, \Countable, \Iter
     use SolidableTrait;
 
     /**
+     * When value changed directly.
+     *
+     * @var bool
+     */
+    private $changed = false;
+
+    /**
      * @var array
      */
     protected $values = [];
@@ -142,6 +149,7 @@ abstract class AbstractArray implements CompositableInterface, \Countable, \Iter
     {
         //Manually altered arrays must always end in solid state
         $this->solidState = true;
+        $this->changed = true;
 
         //Flushing existed values
         $this->values = [];
@@ -155,7 +163,7 @@ abstract class AbstractArray implements CompositableInterface, \Countable, \Iter
      */
     public function hasChanges(): bool
     {
-        return !empty($this->atomics);
+        return $this->changed || !empty($this->atomics);
     }
 
     /**
@@ -163,6 +171,7 @@ abstract class AbstractArray implements CompositableInterface, \Countable, \Iter
      */
     public function flushChanges()
     {
+        $this->changed = false;
         $this->atomics = [];
     }
 
