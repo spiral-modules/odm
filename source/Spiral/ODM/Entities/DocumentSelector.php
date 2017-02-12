@@ -317,7 +317,7 @@ class DocumentSelector extends Component implements
     protected function createCursor(array $fields = [])
     {
         if ($this->hasPaginator()) {
-            $paginator = $this->configurePaginator($this->count());
+            $paginator = $this->getPaginator(true);
 
             //Paginate in isolation
             $selector = clone $this;
