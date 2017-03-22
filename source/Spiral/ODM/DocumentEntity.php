@@ -125,7 +125,6 @@ abstract class DocumentEntity extends SchematicEntity implements CompositableInt
      * Model behaviour configurations.
      */
     const SECURED   = '*';
-    const HIDDEN    = [];
     const FILLABLE  = [];
     const SETTERS   = [];
     const GETTERS   = [];
