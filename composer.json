@@ -12,9 +12,9 @@
   "require": {
     "php": ">=7.0",
     "ext-mongodb": ">1.1.0",
-    "spiral/common": "^0.9",
-    "spiral/models": "^0.9",
-    "spiral/tokenizer": "^0.9",
+    "spiral/common": "^1.0",
+    "spiral/models": "^1.0",
+    "spiral/tokenizer": "^1.0",
     "spiral/pagination": "~1.0",
     "mongodb/mongodb": "^1.1",
     "doctrine/inflector": "^1.1"
